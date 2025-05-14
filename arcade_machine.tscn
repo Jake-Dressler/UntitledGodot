@@ -1,0 +1,42 @@
+[gd_scene load_steps=7 format=3 uid="uid://cxkpt58plbc1f"]
+
+[ext_resource type="Script" uid="uid://bsa85jj0fnvwl" path="res://arcade_machine.gd" id="1_ynv5w"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_cob0o"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_glkj4"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gtvnp"]
+next_pass = SubResource("ShaderMaterial_glkj4")
+albedo_color = Color(0, 0, 0, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_tonsr"]
+material = SubResource("StandardMaterial3D_gtvnp")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_n5uss"]
+size = Vector3(1, 1.11707, 1)
+
+[node name="arcade_machine" type="Node3D"]
+script = ExtResource("1_ynv5w")
+
+[node name="ArcadeCabinet" type="MeshInstance3D" parent="."]
+transform = Transform3D(1.2, 0, 0, 0, 2, 0, 0, 0, 1, 0, 1, 0)
+mesh = SubResource("BoxMesh_cob0o")
+
+[node name="Screen" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.8, 0, 0, 0, 0.9, 0, 0, 0, 0.1, 0, 1.469, -0.5)
+mesh = SubResource("BoxMesh_tonsr")
+skeleton = NodePath("../ArcadeCabinet")
+
+[node name="GameTitle" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8, -0.511682)
+modulate = Color(1, 0, 0, 1)
+text = "game"
+font_size = 45
+
+[node name="Area3D" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.008, 0.437688, -0.041)
+shape = SubResource("BoxShape3D_n5uss")
